@@ -29,9 +29,11 @@ module.exports.contact = (event, context, callback) => {
   const user_message = event.queryStringParameters.message;
   const email = event.queryStringParameters.email;
 
+  console.log(event);
+
   // spam protection
   if (spam) {
-    callback(null, RESPONSES.SPAM)
+    callback(null, RESPONSES.SPAM);
     return;
   }
 
@@ -77,6 +79,8 @@ module.exports.contact = (event, context, callback) => {
           model.createdAt = timestamp;
           model.ip = event.requestContext.identity.sourceIp;
 
+          console.log(model);
+
           db.put({
             TableName: TABLE,
             Item: model,
@@ -99,7 +103,7 @@ module.exports.contact = (event, context, callback) => {
             callback(null, response);
           });
 
-          callback(null, RESPONSES.OK);
+          callback(null, RESPONSES.CREATED);
 
         });
       });
