@@ -1,3 +1,4 @@
 node_modules/
 .serverless/
 event_sample.json
+.idea
